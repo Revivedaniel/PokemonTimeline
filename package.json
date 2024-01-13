@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:ci": "ng build --prod --sourceMap=false --base-href /PokemonTimeline/"
   },
   "private": true,
   "dependencies": {
