@@ -4,7 +4,8 @@
             <div *ngFor="let moment of moments; let i = index" class="timeline" [class.left]="i % 2 === 0"
                 [class.right]="i % 2 !== 0">
                 <div class="card">
-                    <div class="card-body p-4 d-flex justify-content-between align-items-center" [class.flex-row-reverse]="i % 2 !== 0">
+                    <div class="card-body p-4 d-flex justify-content-between align-items-center"
+                        [class.flex-row-reverse]="i % 2 !== 0">
                         <div>
                             <h3>{{ moment.title }}</h3>
                             <p class="mb-0">{{ moment.text }}</p>
@@ -13,6 +14,35 @@
                     </div>
                 </div>
             </div>
+            <div class="timeline left">
+                <div class="card">
+                    <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                        <form (submit)="addNewMoment()">
+                            <div class="form-group">
+                                <label for="newMomentTitle">Title</label>
+                                <input type="text" class="form-control" id="newMomentTitle"
+                                    [(ngModel)]="newMoment.title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newMomentText">Text</label>
+                                <textarea class="form-control" id="newMomentText" [(ngModel)]="newMoment.text"
+                                    name="text" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="newMomentImage">Select Image</label>
+                                <div class="image-selection">
+                                    <div *ngFor="let img of availableImages" (click)="selectImage(img)"
+                                        [class.selected]="newMoment.image === img">
+                                        <img [src]="img" class="selectable-image">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Moment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

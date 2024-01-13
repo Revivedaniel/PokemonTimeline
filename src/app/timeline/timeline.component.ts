@@ -24,10 +24,9 @@ export class TimelineComponent implements OnInit {
   }
 
   addNewMoment() {
-    if (this.newMoment.text || this.newMoment.image) {
+    if(this.newMoment.title && this.newMoment.text && this.newMoment.image) {
       this.momentService.addMoment(this.newMoment);
-      this.newMoment = { id: 0, title: '', text: '', image: '' }; // Reset form
-      this.moments = this.momentService.getMoments(); // Refresh the list
+      this.newMoment = { id: 0, title: '', text: '', image: '' }; // Reset the form
     }
   }
 

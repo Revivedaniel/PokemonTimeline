@@ -85,6 +85,27 @@
     border-radius: 50%; // If you want it round
 }
 
+.image-selection {
+    .selectable-image {
+        cursor: pointer; // This makes the cursor a pointer when hovering over the image
+        transition: transform 0.3s ease; // Smooth transition for scaling
+        width: 100px; // Adjust as necessary
+        height: 100px; // Adjust as necessary
+        object-fit: contain; // Ensures the images cover the area nicely
+        border-radius: 50%; // Optional: makes the images round
+
+        &:hover {
+            transform: scale(1.1); // Scales the image up slightly when hovered
+        }
+
+        &.selected {
+            border: 2px solid #007bff; // Highlights the selected image with a blue border
+            transform: scale(1.1); // Also scale the selected image to indicate selection
+        }
+    }
+}
+
+
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 600px) {
 
