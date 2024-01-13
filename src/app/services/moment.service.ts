@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Moment } from '../models/moment.model';
 import { Subject } from 'rxjs';
 import { openDB } from 'idb';
+import * as Papa from 'papaparse';
 
 @Injectable({
   providedIn: 'root',
@@ -80,7 +81,7 @@ export class MomentService {
       this.moments[index + 1] = moment;
       this.moments[index] = nextMoment;
     }
-    this.resetDb(this.moments)
+    this.resetDb(this.moments);
   }
 
   resetDb(moments?: Moment[]) {
@@ -94,12 +95,42 @@ export class MomentService {
           this.addMoment(moment, true);
         });
         console.log('handleMomentUpdate from resetDb');
-        this.handleMomentUpdate();
       }
+      this.handleMomentUpdate();
     });
   }
 
   handleMomentUpdate() {
     this.momentsUpdated.next(this.moments);
+  }
+
+  async exportMomentsToCsv() {
+    const filename = 'moments.csv';
+    const moments = this.getMoments();
+    let csvContent = '';
+    csvContent += 'id,title,text,image\n'; // Assuming these are your fields
+
+    moments.forEach((moment) => {
+      let row = `${moment.id},${moment.title},${moment.text},${moment.image}`;
+      csvContent += row + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  uploadFile(file: File) {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (result: any) => {
+        const moments: Moment[] = result.data;
+        this.resetDb(moments);
+      },
+    });
   }
 }
