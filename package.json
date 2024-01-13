@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:ci": "ng build --source-map=false --base-href /PokemonTimeline/"
+    "build:gp": "ng build --base-href https://Revivedaniel.github.io/PokemonTimeline/"
   },
   "private": true,
   "dependencies": {
